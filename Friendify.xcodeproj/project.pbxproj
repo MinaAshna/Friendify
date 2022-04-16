@@ -14,6 +14,9 @@
 		B4DBCC06280AE77F0058F146 /* FriendifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC05280AE77F0058F146 /* FriendifyTests.swift */; };
 		B4DBCC10280AE77F0058F146 /* FriendifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC0F280AE77F0058F146 /* FriendifyUITests.swift */; };
 		B4DBCC12280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */; };
+		B4DBCC20280AE9510058F146 /* MultipeerConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC1F280AE9510058F146 /* MultipeerConnectivityManager.swift */; };
+		B4DBCC22280B05170058F146 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC21280B05170058F146 /* ViewModel.swift */; };
+		B4DBCC24280B056E0058F146 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC23280B056E0058F146 /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		B4DBCC0B280AE77F0058F146 /* FriendifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FriendifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4DBCC0F280AE77F0058F146 /* FriendifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyUITests.swift; sourceTree = "<group>"; };
 		B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B4DBCC1F280AE9510058F146 /* MultipeerConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivityManager.swift; sourceTree = "<group>"; };
+		B4DBCC21280B05170058F146 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		B4DBCC23280B056E0058F146 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +100,13 @@
 		B4DBCBF3280AE7780058F146 /* Friendify */ = {
 			isa = PBXGroup;
 			children = (
+				B4DBCC1E280AE9300058F146 /* MultipeerConnectivity */,
 				B4DBCBF4280AE7780058F146 /* FriendifyApp.swift */,
 				B4DBCBF6280AE7780058F146 /* ContentView.swift */,
 				B4DBCBF8280AE77E0058F146 /* Assets.xcassets */,
 				B4DBCBFA280AE77E0058F146 /* Preview Content */,
+				B4DBCC21280B05170058F146 /* ViewModel.swift */,
+				B4DBCC23280B056E0058F146 /* OnboardingView.swift */,
 			);
 			path = Friendify;
 			sourceTree = "<group>";
@@ -125,6 +134,14 @@
 				B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */,
 			);
 			path = FriendifyUITests;
+			sourceTree = "<group>";
+		};
+		B4DBCC1E280AE9300058F146 /* MultipeerConnectivity */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC1F280AE9510058F146 /* MultipeerConnectivityManager.swift */,
+			);
+			path = MultipeerConnectivity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +276,9 @@
 			files = (
 				B4DBCBF7280AE7780058F146 /* ContentView.swift in Sources */,
 				B4DBCBF5280AE7780058F146 /* FriendifyApp.swift in Sources */,
+				B4DBCC22280B05170058F146 /* ViewModel.swift in Sources */,
+				B4DBCC24280B056E0058F146 /* OnboardingView.swift in Sources */,
+				B4DBCC20280AE9510058F146 /* MultipeerConnectivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
