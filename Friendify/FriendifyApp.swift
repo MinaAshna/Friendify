@@ -11,7 +11,7 @@ import SwiftUI
 struct FriendifyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OnboardingView(viewModel: ViewModel())
         }
     }
 }
