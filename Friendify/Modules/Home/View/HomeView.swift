@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: AppViewModel
+    var presenter: HomePresenterProtocol
 
     var body: some View {
         NavigationView {
@@ -21,7 +22,7 @@ struct HomeView: View {
                 Spacer()
 
                 Button {
-                   
+                    presenter.mingleButtonPressed()
                 } label: {
                     Text("Let's Mingle :)")
                         .font(.title3)
@@ -31,6 +32,9 @@ struct HomeView: View {
                         .background(Color.primary)
                         .cornerRadius(8)
                 }
+                .padding()
+
+                Text(viewModel.sessionState.rawValue)
 
                 Spacer()
             }
@@ -39,12 +43,20 @@ struct HomeView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    class DummyPresenter: HomePresenterProtocol {
+        func mingleButtonPressed() {
+
+        }
+    }
+
     static var previews: some View {
         let viewModel = AppViewModel()
-        HomeView(viewModel: viewModel)
+        let presenter = DummyPresenter()
+
+        HomeView(viewModel: viewModel, presenter: presenter)
             .preferredColorScheme(.dark)
 
-        HomeView(viewModel: viewModel)
+        HomeView(viewModel: viewModel, presenter: presenter)
             .preferredColorScheme(.light)
     }
 }

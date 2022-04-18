@@ -10,6 +10,7 @@ enum SessionState: String {
     case initializing = "Initializing ..."
     case discovering = "Discovering Peer ..."
     case peerEnded = "Peer Ended"
+    case peerConnected = "Connected"
     case peerTimeout = "Peer Timeout"
     case sessionSuspended = "Session suspended"
     case accessRequired = "Nearby Interactions access required. You can change access in Settings."

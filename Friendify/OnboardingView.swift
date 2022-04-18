@@ -36,7 +36,7 @@ struct OnboardingView: View {
                 Spacer()
 
                 NavigationLink {
-                    HomeView(viewModel: viewModel)
+                    HomeView(viewModel: viewModel, presenter: HomePresenter(viewModel: viewModel))
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                 } label: {

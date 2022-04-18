@@ -58,6 +58,7 @@
 		B4DBCC2C280D2C5A0058F146 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		B4DBCC2F280D2E910058F146 /* DistanceDirectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceDirectionState.swift; sourceTree = "<group>"; };
 		B4DBCC31280D322E0058F146 /* SessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionState.swift; sourceTree = "<group>"; };
+		B4DBCC33280D36550058F146 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +109,7 @@
 		B4DBCBF3280AE7780058F146 /* Friendify */ = {
 			isa = PBXGroup;
 			children = (
+				B4DBCC33280D36550058F146 /* Info.plist */,
 				B4DBCC2E280D2E7F0058F146 /* Helpers */,
 				B4DBCC28280D2C100058F146 /* Modules */,
 				B4DBCC25280D2A9E0058F146 /* NearbyInteraction */,
@@ -504,6 +506,9 @@
 				DEVELOPMENT_TEAM = RE4SHLL9XY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Friendify/Info.plist;
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "The app needs permission to find peers around you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -533,6 +538,9 @@
 				DEVELOPMENT_TEAM = RE4SHLL9XY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Friendify/Info.plist;
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "The app needs permission to find peers around you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -65,7 +65,7 @@ class HomePresenter {
 
     func startupMPC() {
         if mpc == nil {
-            mpc = MultipeerConnectivityManager(service: "nisample", identity: "com.example.apple-samplecode.simulator.peekaboo-nearbyinteraction", maxPeers: 1)
+            mpc = MultipeerConnectivityManager(service: "friendify", identity: "com.minaashna.friendify-nearbyinteraction", maxPeers: 1)
         }
         mpc?.invalidate()
         mpc?.start()
@@ -78,25 +78,59 @@ class HomePresenter {
         mpc?.sendDataToAllPeers(data: encodedData)
         sharedTokenWithPeer = true
     }
+
+    func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
+        if connectedPeer != peer {
+            fatalError("Received token from unexpected peer.")
+        }
+        // Create a configuration.
+        peerDiscoveryToken = token
+
+        let config = NINearbyPeerConfiguration(peerToken: token)
+
+        // Run the session.
+        session?.run(config)
+    }
 }
 
 extension HomePresenter: HomePresenterProtocol {
     func mingleButtonPressed() {
-
+        startup()
     }
 }
 
 extension HomePresenter: MultipeerConnectivityDelegate {
     func peerDidReceiveData(data: Data, peer: MCPeerID) {
-
+        guard let discoveryToken = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: data) else {
+            fatalError("Unexpectedly failed to decode discovery token.")
+        }
+        peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
     }
 
     func didConnect(toPeer peer: MCPeerID) {
+        guard let myToken = session?.discoveryToken else {
+            fatalError("Unexpectedly failed to initialize nearby interaction session.")
+        }
 
+        if connectedPeer != nil {
+            fatalError("Already connected to a peer.")
+        }
+
+        if !sharedTokenWithPeer {
+            shareMyDiscoveryToken(token: myToken)
+        }
+
+        connectedPeer = peer
+        viewModel.connectedPeerDisplayName = peer.displayName
+        viewModel.sessionState = .peerConnected
     }
 
     func didDisconnect(fromPeer peer: MCPeerID) {
-
+        if connectedPeer == peer {
+            connectedPeer = nil
+            sharedTokenWithPeer = false
+            viewModel.sessionState = .notConnected
+        }
     }
 }
 
