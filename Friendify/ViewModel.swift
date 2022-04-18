@@ -8,6 +8,6 @@
 import Foundation
 
 class ViewModel: ObservableObject {
-    var displayName: String?
+    @Published var displayName: String = "Guest"
     @Published var connectedPeerDisplayName: String?
 }

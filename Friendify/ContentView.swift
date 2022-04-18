@@ -9,10 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
+    @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         NavigationView {
             VStack {
+                Text("Hi \(viewModel.displayName)")
+                    .font(.title2)
+                    .fontWeight(.bold)
+
+                Spacer()
+
                 Button {
                    
                 } label: {
@@ -24,6 +31,8 @@ struct ContentView: View {
                         .background(Color.primary)
                         .cornerRadius(8)
                 }
+
+                Spacer()
             }
         }
     }
@@ -31,10 +40,11 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let viewModel = ViewModel()
+        ContentView(viewModel: viewModel)
             .preferredColorScheme(.dark)
 
-        ContentView()
+        ContentView(viewModel: viewModel)
             .preferredColorScheme(.light)
     }
 }

@@ -9,9 +9,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Environment(\.colorScheme) var colorScheme
-    @State private var displayName: String = ""
-
-    var viewModel: ViewModel
+    @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         NavigationView {
@@ -25,7 +23,7 @@ struct OnboardingView: View {
                 Spacer()
 
                 Text("Please enter your name")
-                TextField("", text: $displayName)
+                TextField("", text: $viewModel.displayName)
                     .frame(height: 60)
                     .cornerRadius(8)
                     .overlay(
@@ -38,7 +36,7 @@ struct OnboardingView: View {
                 Spacer()
 
                 NavigationLink {
-                    ContentView()
+                    ContentView(viewModel: viewModel)
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                 } label: {
