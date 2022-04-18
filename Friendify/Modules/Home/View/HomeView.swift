@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  Friendify
 //
 //  Created by Mina Ashna on 16/04/2022.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     var body: some View {
         NavigationView {
@@ -40,11 +40,11 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ViewModel()
-        ContentView(viewModel: viewModel)
+        let viewModel = AppViewModel()
+        HomeView(viewModel: viewModel)
             .preferredColorScheme(.dark)
 
-        ContentView(viewModel: viewModel)
+        HomeView(viewModel: viewModel)
             .preferredColorScheme(.light)
     }
 }

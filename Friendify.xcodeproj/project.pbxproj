@@ -8,15 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		B4DBCBF5280AE7780058F146 /* FriendifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCBF4280AE7780058F146 /* FriendifyApp.swift */; };
-		B4DBCBF7280AE7780058F146 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCBF6280AE7780058F146 /* ContentView.swift */; };
+		B4DBCBF7280AE7780058F146 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCBF6280AE7780058F146 /* HomeView.swift */; };
 		B4DBCBF9280AE77E0058F146 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4DBCBF8280AE77E0058F146 /* Assets.xcassets */; };
 		B4DBCBFC280AE77E0058F146 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4DBCBFB280AE77E0058F146 /* Preview Assets.xcassets */; };
 		B4DBCC06280AE77F0058F146 /* FriendifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC05280AE77F0058F146 /* FriendifyTests.swift */; };
 		B4DBCC10280AE77F0058F146 /* FriendifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC0F280AE77F0058F146 /* FriendifyUITests.swift */; };
 		B4DBCC12280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */; };
 		B4DBCC20280AE9510058F146 /* MultipeerConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC1F280AE9510058F146 /* MultipeerConnectivityManager.swift */; };
-		B4DBCC22280B05170058F146 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC21280B05170058F146 /* ViewModel.swift */; };
+		B4DBCC22280B05170058F146 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC21280B05170058F146 /* AppViewModel.swift */; };
 		B4DBCC24280B056E0058F146 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC23280B056E0058F146 /* OnboardingView.swift */; };
+		B4DBCC27280D2B400058F146 /* NearbyInteractionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC26280D2B400058F146 /* NearbyInteractionManager.swift */; };
+		B4DBCC2D280D2C5A0058F146 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC2C280D2C5A0058F146 /* HomePresenter.swift */; };
+		B4DBCC30280D2E910058F146 /* DistanceDirectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC2F280D2E910058F146 /* DistanceDirectionState.swift */; };
+		B4DBCC32280D322E0058F146 /* SessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC31280D322E0058F146 /* SessionState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +43,7 @@
 /* Begin PBXFileReference section */
 		B4DBCBF1280AE7780058F146 /* Friendify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Friendify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4DBCBF4280AE7780058F146 /* FriendifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyApp.swift; sourceTree = "<group>"; };
-		B4DBCBF6280AE7780058F146 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B4DBCBF6280AE7780058F146 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B4DBCBF8280AE77E0058F146 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4DBCBFB280AE77E0058F146 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B4DBCC01280AE77F0058F146 /* FriendifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FriendifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,8 +52,12 @@
 		B4DBCC0F280AE77F0058F146 /* FriendifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyUITests.swift; sourceTree = "<group>"; };
 		B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B4DBCC1F280AE9510058F146 /* MultipeerConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivityManager.swift; sourceTree = "<group>"; };
-		B4DBCC21280B05170058F146 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		B4DBCC21280B05170058F146 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		B4DBCC23280B056E0058F146 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B4DBCC26280D2B400058F146 /* NearbyInteractionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyInteractionManager.swift; sourceTree = "<group>"; };
+		B4DBCC2C280D2C5A0058F146 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		B4DBCC2F280D2E910058F146 /* DistanceDirectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceDirectionState.swift; sourceTree = "<group>"; };
+		B4DBCC31280D322E0058F146 /* SessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +108,14 @@
 		B4DBCBF3280AE7780058F146 /* Friendify */ = {
 			isa = PBXGroup;
 			children = (
+				B4DBCC2E280D2E7F0058F146 /* Helpers */,
+				B4DBCC28280D2C100058F146 /* Modules */,
+				B4DBCC25280D2A9E0058F146 /* NearbyInteraction */,
 				B4DBCC1E280AE9300058F146 /* MultipeerConnectivity */,
 				B4DBCBF4280AE7780058F146 /* FriendifyApp.swift */,
-				B4DBCBF6280AE7780058F146 /* ContentView.swift */,
+				B4DBCC21280B05170058F146 /* AppViewModel.swift */,
 				B4DBCBF8280AE77E0058F146 /* Assets.xcassets */,
 				B4DBCBFA280AE77E0058F146 /* Preview Content */,
-				B4DBCC21280B05170058F146 /* ViewModel.swift */,
 				B4DBCC23280B056E0058F146 /* OnboardingView.swift */,
 			);
 			path = Friendify;
@@ -142,6 +152,56 @@
 				B4DBCC1F280AE9510058F146 /* MultipeerConnectivityManager.swift */,
 			);
 			path = MultipeerConnectivity;
+			sourceTree = "<group>";
+		};
+		B4DBCC25280D2A9E0058F146 /* NearbyInteraction */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC26280D2B400058F146 /* NearbyInteractionManager.swift */,
+			);
+			path = NearbyInteraction;
+			sourceTree = "<group>";
+		};
+		B4DBCC28280D2C100058F146 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC29280D2C160058F146 /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		B4DBCC29280D2C160058F146 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC2B280D2C280058F146 /* View */,
+				B4DBCC2A280D2C1F0058F146 /* Presenter */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B4DBCC2A280D2C1F0058F146 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC2C280D2C5A0058F146 /* HomePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		B4DBCC2B280D2C280058F146 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCBF6280AE7780058F146 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B4DBCC2E280D2E7F0058F146 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC2F280D2E910058F146 /* DistanceDirectionState.swift */,
+				B4DBCC31280D322E0058F146 /* SessionState.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,9 +334,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4DBCBF7280AE7780058F146 /* ContentView.swift in Sources */,
+				B4DBCC2D280D2C5A0058F146 /* HomePresenter.swift in Sources */,
+				B4DBCBF7280AE7780058F146 /* HomeView.swift in Sources */,
+				B4DBCC27280D2B400058F146 /* NearbyInteractionManager.swift in Sources */,
+				B4DBCC32280D322E0058F146 /* SessionState.swift in Sources */,
 				B4DBCBF5280AE7780058F146 /* FriendifyApp.swift in Sources */,
-				B4DBCC22280B05170058F146 /* ViewModel.swift in Sources */,
+				B4DBCC30280D2E910058F146 /* DistanceDirectionState.swift in Sources */,
+				B4DBCC22280B05170058F146 /* AppViewModel.swift in Sources */,
 				B4DBCC24280B056E0058F146 /* OnboardingView.swift in Sources */,
 				B4DBCC20280AE9510058F146 /* MultipeerConnectivityManager.swift in Sources */,
 			);

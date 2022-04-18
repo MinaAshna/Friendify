@@ -7,7 +7,8 @@
 
 import Foundation
 
-class ViewModel: ObservableObject {
+class AppViewModel: ObservableObject {
     @Published var displayName: String = "Guest"
     @Published var connectedPeerDisplayName: String?
+    @Published var sessionState: SessionState = .notConnected
 }

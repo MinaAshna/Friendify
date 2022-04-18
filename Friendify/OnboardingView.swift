@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var viewModel: ViewModel
+    @ObservedObject var viewModel: AppViewModel
 
     var body: some View {
         NavigationView {
@@ -36,7 +36,7 @@ struct OnboardingView: View {
                 Spacer()
 
                 NavigationLink {
-                    ContentView(viewModel: viewModel)
+                    HomeView(viewModel: viewModel)
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                 } label: {
@@ -56,10 +56,10 @@ struct OnboardingView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(viewModel: ViewModel())
+        OnboardingView(viewModel: AppViewModel())
             .preferredColorScheme(.dark)
 
-        OnboardingView(viewModel: ViewModel())
+        OnboardingView(viewModel: AppViewModel())
             .preferredColorScheme(.light)
     }
 }

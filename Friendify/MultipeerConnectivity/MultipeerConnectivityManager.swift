@@ -11,6 +11,12 @@ protocol MultipeerConnectivityDelegate: AnyObject {
     func didDisconnect(fromPeer peer: MCPeerID)
 }
 
+protocol MultipeerConnectivityManagerProtocol {
+    func start()
+    func invalidate()
+    func sendDataToAllPeers(data: Data)
+}
+
 class MultipeerConnectivityManager: NSObject {
     weak var delegate: MultipeerConnectivityDelegate?
 
@@ -39,19 +45,10 @@ class MultipeerConnectivityManager: NSObject {
     }
 
     // MARK: - `MPCSession` public methods.
-    func start() {
-        mcAdvertiser.startAdvertisingPeer()
-        mcBrowser.startBrowsingForPeers()
-    }
 
     func suspend() {
         mcAdvertiser.stopAdvertisingPeer()
         mcBrowser.stopBrowsingForPeers()
-    }
-
-    func invalidate() {
-        suspend()
-        mcSession.disconnect()
     }
 
     func sendDataToAllPeers(data: Data) {
@@ -85,6 +82,19 @@ class MultipeerConnectivityManager: NSObject {
         if mcSession.connectedPeers.count < maxNumPeers {
             self.start()
         }
+    }
+}
+
+// MARK: - MultipeerConnectivityManagerProtocol
+extension MultipeerConnectivityManager: MultipeerConnectivityManagerProtocol {
+    func start() {
+        mcAdvertiser.startAdvertisingPeer()
+        mcBrowser.startBrowsingForPeers()
+    }
+
+    func invalidate() {
+        suspend()
+        mcSession.disconnect()
     }
 }
 
