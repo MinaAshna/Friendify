@@ -9,50 +9,50 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Environment(\.colorScheme) var colorScheme
+    @State private var displayName: String = ""
+
     var viewModel: ViewModel
-    @State private var displayName: String = "" {
-        didSet {
-            viewModel.displayName = displayName
-        }
-    }
 
     var body: some View {
-        VStack {
-            Text("Welcome to Copenhagen Cocoa :)")
-                .font(.title)
-                .lineLimit(2)
-                .padding()
-                .multilineTextAlignment(.center)
-
-            Spacer()
-
-            Text("Please enter your name")
-            TextField("", text: $displayName)
-                .frame(height: 60)
-                .cornerRadius(8)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(.primary, lineWidth: 0.5)
-                    )
-                .padding()
-                .multilineTextAlignment(.center)
-
-            Spacer()
-
-            Button {
-
-            } label: {
-                Text("Let's Go")
-                    .font(.title3)
-                    .foregroundColor(colorScheme == .dark ? .black : .white)
-                    .frame(width: 80, height: 45)
+        NavigationView {
+            VStack {
+                Text("Welcome to Copenhagen Cocoa :)")
+                    .font(.title)
+                    .lineLimit(2)
                     .padding()
-                    .background(Color.primary)
-                    .cornerRadius(8)
-            }
+                    .multilineTextAlignment(.center)
 
+                Spacer()
+
+                Text("Please enter your name")
+                TextField("", text: $displayName)
+                    .frame(height: 60)
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(.primary, lineWidth: 0.5)
+                    )
+                    .padding()
+                    .multilineTextAlignment(.center)
+
+                Spacer()
+
+                NavigationLink {
+                    ContentView()
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                } label: {
+                    Text("Let's Go")
+                        .font(.title3)
+                        .foregroundColor(colorScheme == .dark ? .black : .white)
+                        .frame(width: 80, height: 45)
+                        .padding()
+                        .background(Color.primary)
+                        .cornerRadius(8)
+                }
+            }
+            .padding(.bottom, 8)
         }
-        .padding()
     }
 }
 
