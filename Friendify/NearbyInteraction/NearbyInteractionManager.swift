@@ -10,8 +10,8 @@ import NearbyInteraction
 protocol NearbyInteractionDelegate: AnyObject {
     func sessionWasSuspended(_ session: NISession)
     func sessionSuspentionEnded(_ session: NISession)
-    func sessionInvalidated(_ session: NISession)
-    func sessionDidRemoveObject(_ session: NISession)
+    func sessionInvalidated(_ session: NISession, withError error: Error)
+    func sessionDidRemoveObject(_ session: NISession, reason: NINearbyObject.RemovalReason)
     func sessionDidUpdateDistanceToPeer(_ obj: NINearbyObject)
 }
 
@@ -21,24 +21,54 @@ protocol NearbyInteractionManagerProtocol {
 
 class NearbyInteractionManager: NSObject, NearbyInteractionManagerProtocol {
     weak var delegate: NearbyInteractionDelegate?
-    init(delegate: NearbyInteractionDelegate?) {
-        self.delegate = delegate
+    var session: NISession?
+    var peerDiscoveryToken: NIDiscoveryToken?
+
+    func start() {
+        // Create the NISession.
+        session = NISession()
+
+        // Set the delegate.
+        session?.delegate = self
     }
 }
 
 extension NearbyInteractionManager: NISessionDelegate {
     func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {
-        nearbyObjects.forEach {
-            delegate?.sessionDidUpdateDistanceToPeer($0)
+        guard let peerToken = peerDiscoveryToken else {
+            fatalError("don't have peer token")
         }
+
+        let peerObj = nearbyObjects.first { (obj) -> Bool in
+            return obj.discoveryToken == peerToken
+        }
+
+        guard let nearbyObjectUpdate = peerObj else {
+            return
+        }
+
+        delegate?.sessionDidUpdateDistanceToPeer(nearbyObjectUpdate)
     }
 
     func session(_ session: NISession, didRemove nearbyObjects: [NINearbyObject], reason: NINearbyObject.RemovalReason) {
+        guard let peerToken = peerDiscoveryToken else {
+            fatalError("don't have peer token")
+        }
+
+        // Find the right peer.
+        let peerObj = nearbyObjects.first { (obj) -> Bool in
+            return obj.discoveryToken == peerToken
+        }
+
+        if peerObj == nil {
+            return
+        }
+
         switch reason {
         case .peerEnded:
             print("disconnected -> PeerEnded")
+            peerDiscoveryToken = nil
             session.invalidate()
-            delegate?.sessionDidRemoveObject(session)
         case .timeout:
             print("disconnected -> timeout")
             if let config = session.configuration {
@@ -48,11 +78,13 @@ extension NearbyInteractionManager: NISessionDelegate {
         @unknown default:
             fatalError()
         }
+
+        delegate?.sessionDidRemoveObject(session, reason: reason)
     }
 
     func session(_ session: NISession, didInvalidateWith error: Error) {
         print("Session is invalid")
-        delegate?.sessionInvalidated(session)
+        delegate?.sessionInvalidated(session, withError: error)
     }
 
     func sessionWasSuspended(_ session: NISession) {
@@ -62,6 +94,14 @@ extension NearbyInteractionManager: NISessionDelegate {
 
     func sessionSuspensionEnded(_ session: NISession) {
         print("session suspention ended")
-        delegate?.sessionSuspentionEnded(session)
+        if let config = session.configuration {
+            session.run(config)
+        } else {
+            // Create a valid configuration.
+            delegate?.sessionSuspentionEnded(session)
+        }
+
     }
 }
+
+

@@ -21,10 +21,21 @@ struct HomeView: View {
 
                 Spacer()
 
+                Text(viewModel.sessionState.rawValue)
+                Text(viewModel.distanceToPeer?.description ?? "")
+                Image(systemName: "arrow.up")
+                    .resizable()
+                    .frame(width: 60, height: 80, alignment: .center)
+                    .padding()
+                    .rotationEffect(Angle(radians: viewModel.rotationAngle))
+                    .opacity(viewModel.sessionState == .notConnected ? 0 : 1)
+
+                Spacer()
+
                 Button {
                     presenter.mingleButtonPressed()
                 } label: {
-                    Text("Let's Mingle :)")
+                    Text(viewModel.sessionState == .notConnected ? "Let's Mingle :)" : "Cancel")
                         .font(.title3)
                         .foregroundColor(colorScheme == .dark ? .black : .white)
                         .frame(height: 45)
@@ -33,10 +44,6 @@ struct HomeView: View {
                         .cornerRadius(8)
                 }
                 .padding()
-
-                Text(viewModel.sessionState.rawValue)
-
-                Spacer()
             }
         }
     }

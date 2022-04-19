@@ -12,13 +12,14 @@ protocol MultipeerConnectivityDelegate: AnyObject {
 }
 
 protocol MultipeerConnectivityManagerProtocol {
+    var delegate: MultipeerConnectivityDelegate? { get set }
     func start()
     func invalidate()
     func sendDataToAllPeers(data: Data)
 }
 
 class MultipeerConnectivityManager: NSObject {
-    weak var delegate: MultipeerConnectivityDelegate?
+    var delegate: MultipeerConnectivityDelegate?
 
     private let serviceString: String
     private let mcSession: MCSession
@@ -45,8 +46,8 @@ class MultipeerConnectivityManager: NSObject {
     }
 
     // MARK: - `MPCSession` public methods.
-
     func suspend() {
+        print("mpc suspend")
         mcAdvertiser.stopAdvertisingPeer()
         mcBrowser.stopBrowsingForPeers()
     }
@@ -88,11 +89,13 @@ class MultipeerConnectivityManager: NSObject {
 // MARK: - MultipeerConnectivityManagerProtocol
 extension MultipeerConnectivityManager: MultipeerConnectivityManagerProtocol {
     func start() {
+        print("MPC started")
         mcAdvertiser.startAdvertisingPeer()
         mcBrowser.startBrowsingForPeers()
     }
 
     func invalidate() {
+        print("Session invalidated")
         suspend()
         mcSession.disconnect()
     }
@@ -101,6 +104,7 @@ extension MultipeerConnectivityManager: MultipeerConnectivityManagerProtocol {
 // MARK: - `MCSessionDelegate`.
 extension MultipeerConnectivityManager: MCSessionDelegate {
     internal func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        print("state change to \(state.rawValue)")
         switch state {
         case .connected:
             peerConnected(peerID: peerID)
@@ -142,6 +146,7 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 // MARK: - `MCNearbyServiceBrowserDelegate`.
 extension MultipeerConnectivityManager: MCNearbyServiceBrowserDelegate {
     internal func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
+        print("Found peer \(peerID)")
         guard let identityValue = info?[MPCSessionConstants.kKeyIdentity] else {
             return
         }
@@ -152,6 +157,7 @@ extension MultipeerConnectivityManager: MCNearbyServiceBrowserDelegate {
 
     internal func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         // The sample app intentional omits this implementation.
+        print("lost peer: \(peerID)")
     }
 }
 
@@ -161,6 +167,7 @@ extension MultipeerConnectivityManager: MCNearbyServiceAdvertiserDelegate {
                              didReceiveInvitationFromPeer peerID: MCPeerID,
                              withContext context: Data?,
                              invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        print("received invitation from \(peerID)")
         // Accept the invitation only if the number of peers is less than the maximum.
         if self.mcSession.connectedPeers.count < maxNumPeers {
             invitationHandler(true, mcSession)

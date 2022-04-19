@@ -14,4 +14,5 @@ enum SessionState: String {
     case peerTimeout = "Peer Timeout"
     case sessionSuspended = "Session suspended"
     case accessRequired = "Nearby Interactions access required. You can change access in Settings."
+    case notSupported = "Nearby Interaction is not supported on this device"
 }
