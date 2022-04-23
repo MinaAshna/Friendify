@@ -102,9 +102,6 @@ extension HomePresenter: HomePresenterProtocol {
     func mingleButtonPressed() {
         if viewModel.sessionState == .notConnected {
             startup()
-        } else {
-         // TBD: cancel the flow
-
         }
     }
 }

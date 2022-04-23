@@ -43,6 +43,7 @@ struct HomeView: View {
                         .background(Color.primary)
                         .cornerRadius(8)
                 }
+                .opacity(viewModel.sessionState == .notConnected ? 1 : 0)
                 .padding()
             }
         }
