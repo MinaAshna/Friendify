@@ -14,7 +14,7 @@ struct OnboardingView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Welcome to Copenhagen Cocoa :)")
+                Text("Welcome :)")
                     .font(.title)
                     .lineLimit(2)
                     .padding()

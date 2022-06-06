@@ -14,14 +14,13 @@ protocol HomePresenterProtocol {
 }
 
 class HomePresenter {
+
     var viewModel: AppViewModel
-    var currentDistanceDirectionState: DistanceDirectionState = .unknown
-    var connectedPeer: MCPeerID?
-    var sharedTokenWithPeer = false
 
     var mpc: MultipeerConnectivityManagerProtocol?
-    var nearbyInteractionManager: NearbyInteractionManager?
+    var nearbyInteractionManager: NearbyInteractionManagerProtocol?
 
+    var limiter = Limiter(policy: .debounce, duration: 2)
     // A threshold, in meters, the app uses to update its display.
     let nearbyDistanceThreshold: Float = 0.3
 
@@ -29,168 +28,177 @@ class HomePresenter {
         self.viewModel = viewModel
     }
 
-    func startup() {
-        guard NISession.isSupported else {
-            viewModel.sessionState = .notSupported
-            return
-        }
+    func startup(session: NISession?) {
+        if let session = session, mpc != nil, !viewModel.niObjects.isEmpty {
+            if let obj = viewModel.niObjects.first(where: { $0.value.session?.discoveryToken == session.discoveryToken }) {
+                if let token = obj.value.session?.discoveryToken {
+                    if obj.value.sharedTokenWithPeer == false {
+                        shareMyDiscoveryToken(token: token, toPeer: obj.key)
+                    }
 
-        nearbyInteractionManager = NearbyInteractionManager()
-        nearbyInteractionManager?.start()
-        nearbyInteractionManager?.delegate = self
+                    guard let peerToken = obj.value.peerDiscoveryToken else {
+                        return
+                    }
 
-        // Because the session is new, reset the token-shared flag.
-        sharedTokenWithPeer = false
-
-        // If `connectedPeer` exists, share the discovery token, if needed.
-        if connectedPeer != nil && mpc != nil {
-            if let myToken = nearbyInteractionManager?.session?.discoveryToken {
-                viewModel.sessionState = .initializing
-                if !sharedTokenWithPeer {
-                    shareMyDiscoveryToken(token: myToken)
+                    runSession(forPeer: obj.key, peerToken: peerToken)
+                } else {
+                    fatalError("Unable to get self discovery token, is this session invalidated?")
                 }
-                guard let peerToken = nearbyInteractionManager?.peerDiscoveryToken else {
-                    fatalError("peer discovery token is not available")
-                }
-                let config = NINearbyPeerConfiguration(peerToken: peerToken)
-                nearbyInteractionManager?.session?.run(config)
-            } else {
-                fatalError("Unable to get self discovery token, is this session invalidated?")
             }
         } else {
-            viewModel.sessionState = .discovering
             startupMPC()
-
-            // Set the display state.
-            currentDistanceDirectionState = .unknown
         }
     }
+}
 
-
+// MARK: - Multipeer Connectivity
+extension HomePresenter {
     func startupMPC() {
         if mpc == nil {
-            mpc = MultipeerConnectivityManager(service: "friendify", identity: "com.minaashna.Friendify", maxPeers: 1)
-            mpc?.delegate = self
+            mpc = MultipeerConnectivityManager(service: "Whitelabels",
+                                                      identity: "MPC-UWB-Experience",
+                                                      displayName: "InStore Employee")
         }
         mpc?.invalidate()
         mpc?.start()
     }
 
-    func shareMyDiscoveryToken(token: NIDiscoveryToken) {
+    func shareMyDiscoveryToken(token: NIDiscoveryToken, toPeer peer: MCPeerID) {
         guard let encodedData = try?  NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: true) else {
             fatalError("Unexpectedly failed to encode discovery token.")
         }
-        mpc?.sendDataToAllPeers(data: encodedData)
-        sharedTokenWithPeer = true
+        mpc?.sendDataToPeers(data: encodedData, peers: [peer], mode: .reliable)
+        viewModel.niObjects[peer]?.sharedTokenWithPeer = true
     }
 
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
-        if connectedPeer != peer {
-            fatalError("Received token from unexpected peer.")
+        viewModel.niObjects[peer]?.peerDiscoveryToken = token
+        runSession(forPeer: peer, peerToken: token)
+    }
+}
+
+// MARK: - NearbyInteraction
+extension HomePresenter {
+    func startupNI(forPeer peer: MCPeerID) {
+        if nearbyInteractionManager == nil {
+            nearbyInteractionManager = NearbyInteractionManager()
+            nearbyInteractionManager?.delegate = self
         }
-        // Create a configuration.
-        nearbyInteractionManager?.peerDiscoveryToken = token
+        setup(forPeer: peer)
+    }
 
+
+    func setup(forPeer peer: MCPeerID) {
+        var niObject = NIObject()
+        niObject.session = NISession()
+        niObject.session?.delegate = nearbyInteractionManager as? NISessionDelegate
+        niObject.peer = peer
+        viewModel.niObjects[peer] = niObject
+    }
+
+    func runSession(forPeer peer: MCPeerID, peerToken token: NIDiscoveryToken) {
         let config = NINearbyPeerConfiguration(peerToken: token)
+        viewModel.niObjects[peer]?.session?.run(config)
+    }
 
-        // Run the session.
-        nearbyInteractionManager?.session?.run(config)
+    private func updateDistanceToPeer(nearbyObject: NINearbyObject) {
+        if let niObject = self.viewModel.niObjects.first(where: { $0.value.peerDiscoveryToken == nearbyObject.discoveryToken }) {
+            let currentDistance = self.viewModel.niObjects[niObject.key]?.distanceToPeer
+            if currentDistance == nil {
+                self.viewModel.niObjects[niObject.key]?.distanceToPeer = nearbyObject.distance
+                self.viewModel.nearbyObjectsDistance[niObject.key] = nearbyObject.distance
+            } else {
+                if let distance = currentDistance,
+                   let nearbyObjectDistance = nearbyObject.distance,
+                   abs(distance - nearbyObjectDistance) > 0.1 {
+                    self.viewModel.niObjects[niObject.key]?.distanceToPeer = nearbyObject.distance
+                    self.viewModel.nearbyObjectsDistance[niObject.key] = nearbyObject.distance
+                }
+            }
+        }
+    }
+}
+
+// MARK: - NearbyInteractionDelegate
+extension HomePresenter: NearbyInteractionDelegate {
+    func sessionSuspentionEnded(_ session: NISession) {
+        if let config = session.configuration {
+            session.run(config)
+        } else {
+            startup(session: session)
+        }
+    }
+
+    func sessionInvalidated(_ session: NISession) {
+        startup(session: session)
+    }
+
+    func sessionDidRemoveObject(_ session: NISession) {
+        startup(session: session)
+    }
+
+    func sessionDistanceToPeerUpdated(_ obj: NINearbyObject) {
+        Task { @MainActor in
+            await limiter.submit {
+                self.updateDistanceToPeer(nearbyObject: obj)
+            }
+        }
+    }
+}
+
+// MARK: - MultipeerConnectiviyProtocol
+extension HomePresenter: MultipeerConnectivityDelegate {
+    func sessionDidReceiveData(_ data: Data, fromPeer peer: MCPeerID) {
+        if let username = String(data: data, encoding: .utf8) {
+            viewModel.nearbyObjectsNames[peer] = username
+        } else {
+            guard let discoveryToken = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: data) else {
+                fatalError("Unexpectedly failed to decode discovery token.")
+            }
+            peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
+        }
+    }
+
+    func sessionDidConnect(toPeer peer: MCPeerID) {
+        startupNI(forPeer: peer)
+        viewModel.connectedPeers.append(peer)
+
+        guard let myToken = viewModel.niObjects[peer]?.session?.discoveryToken else {
+            fatalError("Unexpectedly failed to initialize nearby interaction session.")
+        }
+
+        if viewModel.niObjects[peer]?.sharedTokenWithPeer == false {
+            shareMyDiscoveryToken(token: myToken, toPeer: peer)
+        }
+    }
+
+    func sessionDidDisconnect(formPeer peer: MCPeerID) {
+        if let index = viewModel.connectedPeers.firstIndex(of: peer) {
+            viewModel.connectedPeers.remove(at: index)
+        }
+        viewModel.nearbyObjectsNames.removeValue(forKey: peer)
+        viewModel.nearbyObjectsDistance.removeValue(forKey: peer)
+    }
+
+    func sessionIsConnecting(toPeer peer: MCPeerID) {}
+
+    func sessionIsInUnknownState(toPeer peer: MCPeerID) {
+        print("There is a new state that is not handled")
+    }
+
+    func failedToSendData(toPeers peers: [MCPeerID], error: Error) {
+        print("Error in sending Data. error: \(error)")
+    }
+
+    func sessionLostPeer(_ peer: MCPeerID) {
+        print("lost connection to peer: \(peer)")
     }
 }
 
 extension HomePresenter: HomePresenterProtocol {
     func mingleButtonPressed() {
         if viewModel.sessionState == .notConnected {
-            startup()
-        }
-    }
-}
-
-extension HomePresenter: MultipeerConnectivityDelegate {
-    func peerDidReceiveData(data: Data, peer: MCPeerID) {
-        guard let discoveryToken = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: data) else {
-            fatalError("Unexpectedly failed to decode discovery token.")
-        }
-        peerDidShareDiscoveryToken(peer: peer, token: discoveryToken)
-    }
-
-    func didConnect(toPeer peer: MCPeerID) {
-        guard let myToken = nearbyInteractionManager?.session?.discoveryToken else {
-            fatalError("Unexpectedly failed to initialize nearby interaction session.")
-        }
-
-        if connectedPeer != nil {
-            fatalError("Already connected to a peer.")
-        }
-
-        if !sharedTokenWithPeer {
-            shareMyDiscoveryToken(token: myToken)
-        }
-
-        connectedPeer = peer
-        viewModel.connectedPeerDisplayName = peer.displayName
-        viewModel.sessionState = .peerConnected
-    }
-
-    func didDisconnect(fromPeer peer: MCPeerID) {
-        if connectedPeer == peer {
-            connectedPeer = nil
-            sharedTokenWithPeer = false
-            viewModel.sessionState = .notConnected
-            viewModel.distanceToPeer = nil
-            viewModel.connectedPeerDisplayName = ""
-        }
-    }
-}
-
-extension HomePresenter: NearbyInteractionDelegate {
-    func sessionWasSuspended(_ session: NISession) {
-        currentDistanceDirectionState = .unknown
-        viewModel.sessionState = .sessionSuspended
-        viewModel.distanceToPeer = nil
-    }
-
-    func sessionSuspentionEnded(_ session: NISession) {
-        // Create a valid configuration.
-        startup()
-    }
-
-    func sessionInvalidated(_ session: NISession, withError error: Error) {
-        currentDistanceDirectionState = .unknown
-        viewModel.distanceToPeer = nil
-
-        if case NIError.userDidNotAllow = error {
-            viewModel.sessionState = .accessRequired
-        }
-
-        // Recreate a valid session.
-        startup()
-    }
-
-    func sessionDidRemoveObject(_ session: NISession, reason: NINearbyObject.RemovalReason) {
-        currentDistanceDirectionState = .unknown
-        viewModel.distanceToPeer = nil
-
-        switch reason {
-        case .peerEnded:
-            // Restart the sequence to see if the peer comes back.
-            startup()
-
-            // Update the app's display.
-            viewModel.sessionState = .peerEnded
-        case .timeout:
-            viewModel.sessionState = .peerTimeout
-        default:
-            fatalError("Unknown and unhandled NINearbyObject.RemovalReason")
-        }
-    }
-
-    func sessionDidUpdateDistanceToPeer(_ obj: NINearbyObject) {
-        let nextState = getDistanceDirectionState(from: obj)
-        currentDistanceDirectionState = nextState
-        viewModel.distanceToPeer = obj.distance
-        Task { @MainActor in
-            calculateRotationAngle(from: currentDistanceDirectionState, to: nextState, with: obj)
+            startup(session: nil)
         }
     }
 }

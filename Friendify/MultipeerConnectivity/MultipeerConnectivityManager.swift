@@ -1,176 +1,152 @@
-import Foundation
 import MultipeerConnectivity
 
-struct MPCSessionConstants {
-    static let kKeyIdentity: String = "identity"
-}
-
-protocol MultipeerConnectivityDelegate: AnyObject {
-    func peerDidReceiveData(data: Data, peer: MCPeerID)
-    func didConnect(toPeer peer: MCPeerID)
-    func didDisconnect(fromPeer peer: MCPeerID)
+public enum MPCType {
+    case advertiser
+    case browser
 }
 
 protocol MultipeerConnectivityManagerProtocol {
-    var delegate: MultipeerConnectivityDelegate? { get set }
     func start()
+    func suspend()
     func invalidate()
     func sendDataToAllPeers(data: Data)
+    func sendDataToPeers(data: Data, peers: [MCPeerID], mode: MCSessionSendDataMode)
+}
+
+protocol MultipeerConnectivityDelegate: AnyObject {
+    func sessionDidReceiveData(_ data: Data, fromPeer peer: MCPeerID)
+    func sessionDidConnect(toPeer peer: MCPeerID)
+    func sessionDidDisconnect(formPeer peer: MCPeerID)
+    func sessionIsConnecting(toPeer peer: MCPeerID)
+    func sessionIsInUnknownState(toPeer peer: MCPeerID)
+    func failedToSendData(toPeers peers: [MCPeerID], error: Error)
+    func sessionLostPeer(_ peer: MCPeerID)
 }
 
 class MultipeerConnectivityManager: NSObject {
-    var delegate: MultipeerConnectivityDelegate?
+    struct MPCSessionConstants {
+        static let kKeyIdentity: String = "identity"
+    }
+    
+    public private(set) var serviceString: String
+    public private(set) var session: MCSession
+    public private(set) var localPeerID: MCPeerID
+    public private(set) var identityString: String
+    
+    private weak var delegate: MultipeerConnectivityDelegate?
 
-    private let serviceString: String
-    private let mcSession: MCSession
-    private let localPeerID = MCPeerID(displayName: UIDevice.current.name)
-    private let mcAdvertiser: MCNearbyServiceAdvertiser
-    private let mcBrowser: MCNearbyServiceBrowser
-    private let identityString: String
-    private let maxNumPeers: Int
+    private var browser: MCNearbyServiceBrowser?
+    private var advertiser: MCNearbyServiceAdvertiser?
 
-    init(service: String, identity: String, maxPeers: Int) {
+
+    public init(service: String, identity: String, displayName: String) {
         serviceString = service
         identityString = identity
-        mcSession = MCSession(peer: localPeerID, securityIdentity: nil, encryptionPreference: .required)
-        mcAdvertiser = MCNearbyServiceAdvertiser(peer: localPeerID,
-                                                 discoveryInfo: [MPCSessionConstants.kKeyIdentity: identityString],
-                                                 serviceType: serviceString)
-        mcBrowser = MCNearbyServiceBrowser(peer: localPeerID, serviceType: serviceString)
-        maxNumPeers = maxPeers
+        localPeerID = MCPeerID(displayName: displayName)
+        session = MCSession(peer: localPeerID, securityIdentity: nil, encryptionPreference: .required)
+        
 
+        
         super.init()
-        mcSession.delegate = self
-        mcAdvertiser.delegate = self
-        mcBrowser.delegate = self
-    }
-
-    // MARK: - `MPCSession` public methods.
-    func suspend() {
-        print("mpc suspend")
-        mcAdvertiser.stopAdvertisingPeer()
-        mcBrowser.stopBrowsingForPeers()
-    }
-
-    func sendDataToAllPeers(data: Data) {
-        sendData(data: data, peers: mcSession.connectedPeers, mode: .reliable)
-    }
-
-    func sendData(data: Data, peers: [MCPeerID], mode: MCSessionSendDataMode) {
-        do {
-            try mcSession.send(data, toPeers: peers, with: mode)
-        } catch let error {
-            NSLog("Error sending data: \(error)")
-        }
-    }
-
-    // MARK: - `MPCSession` private methods.
-    private func peerConnected(peerID: MCPeerID) {
-        Task { @MainActor in
-            self.delegate?.didConnect(toPeer: peerID)
-        }
-
-        if mcSession.connectedPeers.count == maxNumPeers {
-            self.suspend()
-        }
-    }
-
-    private func peerDisconnected(peerID: MCPeerID) {
-        Task { @MainActor in
-            self.delegate?.didDisconnect(fromPeer: peerID)
-        }
-
-        if mcSession.connectedPeers.count < maxNumPeers {
-            self.start()
-        }
+        self.session.delegate = self
+        self.advertiser?.delegate = self
+        self.browser?.delegate = self
     }
 }
 
-// MARK: - MultipeerConnectivityManagerProtocol
 extension MultipeerConnectivityManager: MultipeerConnectivityManagerProtocol {
+    // MARK: - `MPCSession` public methods.
     func start() {
-        print("MPC started")
-        mcAdvertiser.startAdvertisingPeer()
-        mcBrowser.startBrowsingForPeers()
+        advertiser?.startAdvertisingPeer()
+        browser?.startBrowsingForPeers()
     }
-
-    func invalidate() {
-        print("Session invalidated")
+    func suspend() {
+        advertiser?.startAdvertisingPeer()
+        browser?.stopBrowsingForPeers()
+    }
+    
+    final func invalidate() {
         suspend()
-        mcSession.disconnect()
+        session.disconnect()
+    }
+    
+    final func sendDataToAllPeers(data: Data) {
+        do {
+            try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+        } catch {
+            delegate?.failedToSendData(toPeers: session.connectedPeers, error: error)
+        }
+    }
+    
+    final func sendDataToPeers(data: Data, peers: [MCPeerID], mode: MCSessionSendDataMode) {
+        do {
+            try session.send(data, toPeers: peers, with: mode)
+        } catch {
+            delegate?.failedToSendData(toPeers: peers, error: error)
+        }
     }
 }
 
-// MARK: - `MCSessionDelegate`.
 extension MultipeerConnectivityManager: MCSessionDelegate {
-    internal func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        print("state change to \(state.rawValue)")
-        switch state {
-        case .connected:
-            peerConnected(peerID: peerID)
-        case .notConnected:
-            peerDisconnected(peerID: peerID)
-        case .connecting:
-            break
-        @unknown default:
-            fatalError("Unhandled MCSessionState")
-        }
-    }
-
-    internal func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         Task { @MainActor in
-            self.delegate?.peerDidReceiveData(data: data, peer: peerID)
+            switch state {
+            case .connected:
+                self.delegate?.sessionDidConnect(toPeer: peerID)
+            case .notConnected:
+                self.delegate?.sessionDidDisconnect(formPeer: peerID)
+            case .connecting:
+                self.delegate?.sessionIsConnecting(toPeer: peerID)
+            @unknown default:
+                self.delegate?.sessionIsInUnknownState(toPeer: peerID)
+            }
         }
     }
-
-    internal func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        // The sample app intentional omits this implementation.
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        Task { @MainActor in
+            delegate?.sessionDidReceiveData(data, fromPeer: peerID)
+        }
     }
-
-    internal func session(_ session: MCSession,
-                          didStartReceivingResourceWithName resourceName: String,
-                          fromPeer peerID: MCPeerID,
-                          with progress: Progress) {
-        // The sample app intentional omits this implementation.
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
     }
-
-    internal func session(_ session: MCSession,
-                          didFinishReceivingResourceWithName resourceName: String,
-                          fromPeer peerID: MCPeerID,
-                          at localURL: URL?,
-                          withError error: Error?) {
-        // The sample app intentional omits this implementation.
+    
+    func session(_ session: MCSession,
+                 didStartReceivingResourceWithName resourceName: String,
+                 fromPeer peerID: MCPeerID,
+                 with progress: Progress) {
+    }
+    
+    func session(_ session: MCSession,
+                 didFinishReceivingResourceWithName resourceName: String,
+                 fromPeer peerID: MCPeerID,
+                 at localURL: URL?,
+                 withError error: Error?) {
     }
 }
 
-// MARK: - `MCNearbyServiceBrowserDelegate`.
 extension MultipeerConnectivityManager: MCNearbyServiceBrowserDelegate {
-    internal func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        print("Found peer \(peerID)")
+    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         guard let identityValue = info?[MPCSessionConstants.kKeyIdentity] else {
             return
         }
-        if identityValue == identityString && mcSession.connectedPeers.count < maxNumPeers {
-            browser.invitePeer(peerID, to: mcSession, withContext: nil, timeout: 10)
+        if identityValue == identityString {
+            browser.invitePeer(peerID, to: session, withContext: nil, timeout: 10)
         }
     }
 
-    internal func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        // The sample app intentional omits this implementation.
-        print("lost peer: \(peerID)")
+    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        delegate?.sessionLostPeer(peerID)
     }
 }
 
-// MARK: - `MCNearbyServiceAdvertiserDelegate`.
 extension MultipeerConnectivityManager: MCNearbyServiceAdvertiserDelegate {
-    internal func advertiser(_ advertiser: MCNearbyServiceAdvertiser,
-                             didReceiveInvitationFromPeer peerID: MCPeerID,
-                             withContext context: Data?,
-                             invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        print("received invitation from \(peerID)")
-        // Accept the invitation only if the number of peers is less than the maximum.
-        if self.mcSession.connectedPeers.count < maxNumPeers {
-            invitationHandler(true, mcSession)
-        }
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser,
+                           didReceiveInvitationFromPeer peerID: MCPeerID,
+                           withContext context: Data?,
+                           invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+
+            invitationHandler(true, session)
     }
 }
