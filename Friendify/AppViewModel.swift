@@ -16,7 +16,8 @@ class AppViewModel: ObservableObject {
     @Published var rotationAngle: Double = 0
     @Published var distanceToPeer: Float?
 
-    var name: String = "Guest"
+    @Published var logs: [String] = []
+
     var niObjects: [MCPeerID: NIObject] = [:]
     @Published var nearbyObjectsDistance: [MCPeerID: Float] = [:] {
         didSet {

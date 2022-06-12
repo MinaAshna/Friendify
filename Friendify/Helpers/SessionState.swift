@@ -7,6 +7,7 @@
 
 enum SessionState: String {
     case notConnected = "Not Connected"
+    case connecting = "Connecting..."
     case initializing = "Initializing ..."
     case discovering = "Discovering Peer ..."
     case peerEnded = "Peer Ended"

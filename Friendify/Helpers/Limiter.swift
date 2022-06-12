@@ -47,7 +47,6 @@ private extension Limiter {
                 try await Task.sleep(seconds: duration)
                 await operation()
                 task = nil
-                print("result")
             } catch {
                 print(error.localizedDescription)
             }

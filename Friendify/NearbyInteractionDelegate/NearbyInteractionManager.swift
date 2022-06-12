@@ -4,7 +4,7 @@ public protocol NearbyInteractionDelegate: AnyObject {
     func sessionSuspentionEnded(_ session: NISession)
     func sessionInvalidated(_ session: NISession)
     func sessionDidRemoveObject(_ session: NISession)
-    func sessionDistanceToPeerUpdated(_ obj: NINearbyObject)
+    func sessionDistanceToPeerUpdated(_ session: NISession, _ obj: NINearbyObject)
 }
 
 protocol NearbyInteractionManagerProtocol {
@@ -20,7 +20,7 @@ extension NearbyInteractionManager: NearbyInteractionManagerProtocol {}
 extension NearbyInteractionManager: NISessionDelegate {
     public func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {
         nearbyObjects.forEach {
-            delegate?.sessionDistanceToPeerUpdated($0)
+            delegate?.sessionDistanceToPeerUpdated(session, $0)
         }
     }
 

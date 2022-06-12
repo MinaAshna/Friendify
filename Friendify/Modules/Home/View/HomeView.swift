@@ -45,6 +45,12 @@ struct HomeView: View {
                 }
                 .opacity(viewModel.sessionState == .notConnected ? 1 : 0)
                 .padding()
+
+                List {
+                    ForEach(viewModel.logs, id: \.self) { log in
+                        Text(log)
+                    }
+                }
             }
         }
     }
