@@ -3,6 +3,7 @@ import NearbyInteraction
 public protocol NearbyInteractionDelegate: AnyObject {
     func sessionSuspentionEnded(_ session: NISession)
     func sessionInvalidated(_ session: NISession)
+    func sessionIsSuspended(_ session: NISession)
     func sessionDidRemoveObject(_ session: NISession)
     func sessionDistanceToPeerUpdated(_ session: NISession, _ obj: NINearbyObject)
 }
@@ -48,6 +49,7 @@ extension NearbyInteractionManager: NISessionDelegate {
 
     public func sessionWasSuspended(_ session: NISession) {
         print("session is suspended")
+        delegate?.sessionIsSuspended(session)
     }
 
     public func sessionSuspensionEnded(_ session: NISession) {

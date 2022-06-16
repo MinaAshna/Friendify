@@ -15,6 +15,8 @@ class AppViewModel: ObservableObject {
     @Published var sessionState: SessionState = .notConnected
     @Published var rotationAngle: Double = 0
     @Published var distanceToPeer: Float?
+    @Published var currentDistanceDirectionState: DistanceDirectionState = .unknown
+
 
     @Published var logs: [String] = []
 

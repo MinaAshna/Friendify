@@ -23,6 +23,7 @@ class HomePresenter {
     var limiter = Limiter(policy: .debounce, duration: 2)
     // A threshold, in meters, the app uses to update its display.
     let nearbyDistanceThreshold: Float = 0.3
+    var currentDistanceDirectionState: DistanceDirectionState = .unknown
 
     init(viewModel: AppViewModel) {
         self.viewModel = viewModel
@@ -48,6 +49,7 @@ class HomePresenter {
             fatalError("unhandled condition")
         } else {
             startupMPC()
+            viewModel.currentDistanceDirectionState = .unknown
         }
     }
 }
@@ -121,15 +123,21 @@ extension HomePresenter {
             if currentDistance == nil {
                 self.viewModel.niObjects[niObject.key]?.distanceToPeer = nearbyObject.distance
                 self.viewModel.nearbyObjectsDistance[niObject.key] = nearbyObject.distance
+                
             } else {
-                if let distance = currentDistance,
-                   let nearbyObjectDistance = nearbyObject.distance,
-                    abs(distance - nearbyObjectDistance) > 0.1 {
+//                if let distance = currentDistance,
+//                   let nearbyObjectDistance = nearbyObject.distance,
+//                    abs(distance - nearbyObjectDistance) > 0.1 {
                     self.viewModel.niObjects[niObject.key]?.distanceToPeer = nearbyObject.distance
                     self.viewModel.nearbyObjectsDistance[niObject.key] = nearbyObject.distance
                     self.viewModel.distanceToPeer = nearbyObject.distance
-                }
+//                }
             }
+
+            let nextState = getDistanceDirectionState(from: nearbyObject)
+            calculateRotationAngle(from: viewModel.currentDistanceDirectionState, to: nextState, with: nearbyObject)
+            viewModel.currentDistanceDirectionState = nextState
+
         }
     }
 }
@@ -150,13 +158,19 @@ extension HomePresenter: NearbyInteractionDelegate {
     func sessionInvalidated(_ session: NISession) {
         print("NISession Invalidated.")
         viewModel.logs.append("NISession Invalidated.")
+        viewModel.currentDistanceDirectionState = .unknown
 
         startup(session: session)
+    }
+
+    func sessionIsSuspended(_ session: NISession) {
+        viewModel.currentDistanceDirectionState = .unknown
     }
 
     func sessionDidRemoveObject(_ session: NISession) {
         print("NISession did remove object.")
         viewModel.logs.append("NISession did remove object.")
+        viewModel.currentDistanceDirectionState = .unknown
 
         startup(session: session)
     }
@@ -290,5 +304,6 @@ extension HomePresenter {
         let rotationAngle = CGFloat(azimuth ?? 0.0)
         viewModel.rotationAngle = rotationAngle
         print("Rotation Angle: \(rotationAngle)")
+        viewModel.logs.append("Rotation Angle: \(rotationAngle)")
     }
 }
