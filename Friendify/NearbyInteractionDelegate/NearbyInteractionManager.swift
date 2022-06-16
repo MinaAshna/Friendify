@@ -12,7 +12,7 @@ protocol NearbyInteractionManagerProtocol {
 }
 
 public class NearbyInteractionManager: NSObject {
-    weak var delegate: NearbyInteractionDelegate?
+     var delegate: NearbyInteractionDelegate?
 }
 
 extension NearbyInteractionManager: NearbyInteractionManagerProtocol {}

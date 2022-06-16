@@ -78,6 +78,8 @@ extension HomePresenter {
     func peerDidShareDiscoveryToken(peer: MCPeerID, token: NIDiscoveryToken) {
         print("\(peer.displayName) did share discovery token.")
         viewModel.logs.append("\(peer.displayName) did share discovery token.")
+        viewModel.logs.append("peer discovery token \(token)")
+
 
         viewModel.niObjects[peer]?.peerDiscoveryToken = token
         runSession(forPeer: peer, peerToken: token)
@@ -104,6 +106,7 @@ extension HomePresenter {
         niObject.peer = peer
         viewModel.niObjects[peer] = niObject
         viewModel.logs.append("niobject \(viewModel.niObjects[peer]?.peer?.displayName)")
+
         print("niobject \(viewModel.niObjects[peer]?.peer?.displayName)")
     }
 
@@ -120,16 +123,14 @@ extension HomePresenter {
                 self.viewModel.nearbyObjectsDistance[niObject.key] = nearbyObject.distance
             } else {
                 if let distance = currentDistance,
-                   let nearbyObjectDistance = nearbyObject.distance {
-//                   abs(distance - nearbyObjectDistance) > 0.1 {
+                   let nearbyObjectDistance = nearbyObject.distance,
+                    abs(distance - nearbyObjectDistance) > 0.1 {
                     self.viewModel.niObjects[niObject.key]?.distanceToPeer = nearbyObject.distance
                     self.viewModel.nearbyObjectsDistance[niObject.key] = nearbyObject.distance
-                    print(nearbyObject.distance)
+                    self.viewModel.distanceToPeer = nearbyObject.distance
                 }
             }
         }
-//        print("fail updating distance")
-//        fatalError("Unhandled case")
     }
 }
 
