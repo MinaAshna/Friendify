@@ -15,6 +15,8 @@ class AppViewModel: ObservableObject {
     @Published var sessionState: SessionState = .notConnected
     @Published var rotationAngle: Double = 0
     @Published var distanceToPeer: Float?
+    @Published var azimuthDirection: Direction?
+    @Published var elevationDirection: Direction?
     @Published var currentDistanceDirectionState: DistanceDirectionState = .unknown
 
 
@@ -49,3 +51,9 @@ struct NIObject {
     var peer: MCPeerID?
 }
 
+enum Direction: String {
+    case left
+    case right
+    case up
+    case down
+}

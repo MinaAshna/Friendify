@@ -176,11 +176,11 @@ extension HomePresenter: NearbyInteractionDelegate {
     }
 
     func sessionDistanceToPeerUpdated(_ session: NISession, _ obj: NINearbyObject) {
-        Task { @MainActor in
-            await limiter.submit {
+//        Task { @MainActor in
+//            await limiter.submit {
                 self.updateDistanceToPeer(session, nearbyObject: obj)
-            }
-        }
+//            }
+//        }
     }
 }
 
@@ -301,9 +301,34 @@ extension HomePresenter {
 
     private func calculateRotationAngle(from currentState: DistanceDirectionState, to nextState: DistanceDirectionState, with peer: NINearbyObject) {
         let azimuth = peer.direction.map(azimuth(from:))
-        let rotationAngle = CGFloat(azimuth ?? 0.0)
-        viewModel.rotationAngle = rotationAngle
-        print("Rotation Angle: \(rotationAngle)")
-        viewModel.logs.append("Rotation Angle: \(rotationAngle)")
+        let elevation = peer.direction.map(elevation(from:))
+
+
+        if let azimuth {
+            let rotationAngle = CGFloat(azimuth)
+            viewModel.rotationAngle = rotationAngle
+            print("Rotation Angle: \(rotationAngle)")
+            viewModel.logs.append("Rotation Angle: \(rotationAngle)")
+
+            if nextState == .outOfFOV || nextState == .unknown {
+                return
+            }
+
+            if azimuth < 0 {
+                viewModel.azimuthDirection = .left
+            } else {
+                viewModel.azimuthDirection = .right
+            }
+        }
+
+        if let elevation {
+            if elevation < 0 {
+                viewModel.elevationDirection = .down
+            } else {
+                viewModel.elevationDirection = .up
+            }
+        }
+
+
     }
 }

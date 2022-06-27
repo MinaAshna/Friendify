@@ -22,7 +22,12 @@ struct HomeView: View {
                 Spacer()
 
                 Text(viewModel.sessionState.rawValue)
-                Text(viewModel.distanceToPeer?.description ?? "")
+                if let distance = viewModel.distanceToPeer {
+                    Text(String(format: "%0.2f", distance))
+                }
+                Text(viewModel.azimuthDirection?.rawValue ?? "Direction is not available")
+                Text(viewModel.elevationDirection?.rawValue ?? "Direction is not available")
+
                 Image(systemName: "arrow.up")
                     .resizable()
                     .frame(width: 60, height: 80, alignment: .center)
