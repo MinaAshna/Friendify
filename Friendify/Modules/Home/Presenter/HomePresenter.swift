@@ -229,6 +229,10 @@ extension HomePresenter: MultipeerConnectivityDelegate {
         viewModel.nearbyObjectsNames.removeValue(forKey: peer)
         viewModel.nearbyObjectsDistance.removeValue(forKey: peer)
         viewModel.sessionState = .peerEnded
+        viewModel.azimuthDirection = nil
+        viewModel.distanceToPeer = nil
+        viewModel.elevationDirection = nil
+        viewModel.rotationAngle = 0
     }
 
     func session(_ session: MCSession, isConnectingToPeer peer: MCPeerID) {
@@ -303,8 +307,6 @@ extension HomePresenter {
         if let azimuth {
             let rotationAngle = CGFloat(azimuth)
             viewModel.rotationAngle = rotationAngle
-            print("Rotation Angle: \(rotationAngle)")
-            viewModel.logs.append("Rotation Angle: \(rotationAngle)")
 
             if nextState == .outOfFOV || nextState == .unknown {
                 return

@@ -30,7 +30,30 @@ class AppViewModel: ObservableObject {
     }
     @Published var nearbyObjectsNames: [MCPeerID: String] = [:]
     @Published var connectedPeers: [MCPeerID] = []
-
+    var imageName: String {
+        switch sessionState {
+        case .discovering:
+            return "discovering"
+        case .connecting:
+            return "connecting"
+        case .peerConnected:
+            return "connected"
+        case .notConnected:
+            return ""
+        case .initializing:
+            return ""
+        case .peerEnded:
+            return "peerEnded"
+        case .peerTimeout:
+            return ""
+        case .sessionSuspended:
+            return "suspended"
+        case .accessRequired:
+            return "accessRequired"
+        case .notSupported:
+            return "notSupported"
+        }
+    }
     func sortConnectedPeers() {
         connectedPeers.sort { (peer, peer1) in
             if let firstPeer = nearbyObjectsDistance[peer],

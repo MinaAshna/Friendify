@@ -11,6 +11,7 @@ struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: AppViewModel
     var presenter: HomePresenterProtocol
+    var imageName: String = ""
 
     var body: some View {
         NavigationView {
@@ -28,7 +29,7 @@ struct HomeView: View {
                 Text(viewModel.azimuthDirection?.rawValue ?? "Direction is not available")
                 Text(viewModel.elevationDirection?.rawValue ?? "Elevation is not available")
 
-                Image("spaceship")
+                Image(viewModel.imageName)
                     .resizable()
                     .scaledToFit()
                     .padding()
