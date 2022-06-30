@@ -107,9 +107,9 @@ extension HomePresenter {
         niObject.session?.delegate = nearbyInteractionManager as? NISessionDelegate
         niObject.peer = peer
         viewModel.niObjects[peer] = niObject
-        viewModel.logs.append("niobject \(viewModel.niObjects[peer]?.peer?.displayName)")
+        viewModel.logs.append("niobject \(String(describing: viewModel.niObjects[peer]?.peer?.displayName))")
 
-        print("niobject \(viewModel.niObjects[peer]?.peer?.displayName)")
+        print("niobject \(String(describing: viewModel.niObjects[peer]?.peer?.displayName))")
     }
 
     func runSession(forPeer peer: MCPeerID, peerToken token: NIDiscoveryToken) {
@@ -176,11 +176,7 @@ extension HomePresenter: NearbyInteractionDelegate {
     }
 
     func sessionDistanceToPeerUpdated(_ session: NISession, _ obj: NINearbyObject) {
-//        Task { @MainActor in
-//            await limiter.submit {
-                self.updateDistanceToPeer(session, nearbyObject: obj)
-//            }
-//        }
+        self.updateDistanceToPeer(session, nearbyObject: obj)
     }
 }
 

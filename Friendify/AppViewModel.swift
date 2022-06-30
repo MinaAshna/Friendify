@@ -10,7 +10,7 @@ import MultipeerConnectivity
 import NearbyInteraction
 
 class AppViewModel: ObservableObject {
-    @Published var displayName: String = "Guest"
+    @Published var displayName: String = ""
     @Published var connectedPeerDisplayName: String?
     @Published var sessionState: SessionState = .notConnected
     @Published var rotationAngle: Double = 0

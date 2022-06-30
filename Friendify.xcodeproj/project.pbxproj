@@ -90,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B41D215D286DC0CD00D8CF3B /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC23280B056E0058F146 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		B4BE1763284CD55F00562D42 /* NearbyInteractionDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,7 +146,6 @@
 				B4DBCC21280B05170058F146 /* AppViewModel.swift */,
 				B4DBCBF8280AE77E0058F146 /* Assets.xcassets */,
 				B4DBCBFA280AE77E0058F146 /* Preview Content */,
-				B4DBCC23280B056E0058F146 /* OnboardingView.swift */,
 			);
 			path = Friendify;
 			sourceTree = "<group>";
@@ -171,6 +178,7 @@
 		B4DBCC28280D2C100058F146 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B41D215D286DC0CD00D8CF3B /* Onboarding */,
 				B4DBCC29280D2C160058F146 /* Home */,
 			);
 			path = Modules;
