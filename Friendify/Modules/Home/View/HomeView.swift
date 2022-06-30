@@ -26,11 +26,11 @@ struct HomeView: View {
                     Text(String(format: "%0.2f", distance))
                 }
                 Text(viewModel.azimuthDirection?.rawValue ?? "Direction is not available")
-                Text(viewModel.elevationDirection?.rawValue ?? "Direction is not available")
+                Text(viewModel.elevationDirection?.rawValue ?? "Elevation is not available")
 
-                Image(systemName: "arrow.up")
+                Image("spaceship")
                     .resizable()
-                    .frame(width: 60, height: 80, alignment: .center)
+                    .scaledToFit()
                     .padding()
                     .rotationEffect(Angle(radians: viewModel.rotationAngle))
                     .opacity(viewModel.sessionState == .notConnected ? 0 : 1)
@@ -61,7 +61,7 @@ struct HomeView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     class DummyPresenter: HomePresenterProtocol {
         func mingleButtonPressed() {
 
