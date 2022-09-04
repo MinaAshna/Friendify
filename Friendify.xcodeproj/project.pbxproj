@@ -1,0 +1,722 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D06652028A9523600615616 /* MultipeerConnectivityBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D06651F28A9523600615616 /* MultipeerConnectivityBrowserDelegate.swift */; };
+		0D06652228A9525700615616 /* MultipeerConnectivityAdvertiserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D06652128A9525700615616 /* MultipeerConnectivityAdvertiserDelegate.swift */; };
+		0D06652428A9527400615616 /* MultipeerConnectivitySessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D06652328A9527400615616 /* MultipeerConnectivitySessionDelegate.swift */; };
+		39D6A33C288E96DE00D7C843 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 39D6A33B288E96DE00D7C843 /* README.md */; };
+		B476890328991672007598D5 /* HomePresenter+MultipeerConnectivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B476890228991672007598D5 /* HomePresenter+MultipeerConnectivityDelegate.swift */; };
+		B4768905289916EA007598D5 /* HomePresenter+NearbyInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4768904289916EA007598D5 /* HomePresenter+NearbyInteractionDelegate.swift */; };
+		B4BE177A284CD55F00562D42 /* NearbyInteractionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE1764284CD55F00562D42 /* NearbyInteractionManager.swift */; };
+		B4BE1785284CD55F00562D42 /* MultipeerConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BE1778284CD55F00562D42 /* MultipeerConnectivityManager.swift */; };
+		B4DBCBF5280AE7780058F146 /* FriendifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCBF4280AE7780058F146 /* FriendifyApp.swift */; };
+		B4DBCBF7280AE7780058F146 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCBF6280AE7780058F146 /* HomeView.swift */; };
+		B4DBCBF9280AE77E0058F146 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4DBCBF8280AE77E0058F146 /* Assets.xcassets */; };
+		B4DBCBFC280AE77E0058F146 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4DBCBFB280AE77E0058F146 /* Preview Assets.xcassets */; };
+		B4DBCC06280AE77F0058F146 /* FriendifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC05280AE77F0058F146 /* FriendifyTests.swift */; };
+		B4DBCC10280AE77F0058F146 /* FriendifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC0F280AE77F0058F146 /* FriendifyUITests.swift */; };
+		B4DBCC12280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */; };
+		B4DBCC22280B05170058F146 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC21280B05170058F146 /* AppViewModel.swift */; };
+		B4DBCC24280B056E0058F146 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC23280B056E0058F146 /* OnboardingView.swift */; };
+		B4DBCC2D280D2C5A0058F146 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC2C280D2C5A0058F146 /* HomePresenter.swift */; };
+		B4DBCC30280D2E910058F146 /* DistanceDirectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC2F280D2E910058F146 /* DistanceDirectionState.swift */; };
+		B4DBCC32280D322E0058F146 /* SessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC31280D322E0058F146 /* SessionState.swift */; };
+		B4DBCC35280DB6100058F146 /* MathUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DBCC34280DB6100058F146 /* MathUtilities.swift */; };
+		B4E243D5284DF024008C0640 /* Limiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E243D4284DF024008C0640 /* Limiter.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B4DBCC02280AE77F0058F146 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4DBCBE9280AE7780058F146 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B4DBCBF0280AE7780058F146;
+			remoteInfo = Friendify;
+		};
+		B4DBCC0C280AE77F0058F146 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4DBCBE9280AE7780058F146 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B4DBCBF0280AE7780058F146;
+			remoteInfo = Friendify;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0D06651F28A9523600615616 /* MultipeerConnectivityBrowserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivityBrowserDelegate.swift; sourceTree = "<group>"; };
+		0D06652128A9525700615616 /* MultipeerConnectivityAdvertiserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivityAdvertiserDelegate.swift; sourceTree = "<group>"; };
+		0D06652328A9527400615616 /* MultipeerConnectivitySessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivitySessionDelegate.swift; sourceTree = "<group>"; };
+		39D6A33B288E96DE00D7C843 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B476890228991672007598D5 /* HomePresenter+MultipeerConnectivityDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomePresenter+MultipeerConnectivityDelegate.swift"; sourceTree = "<group>"; };
+		B4768904289916EA007598D5 /* HomePresenter+NearbyInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomePresenter+NearbyInteractionDelegate.swift"; sourceTree = "<group>"; };
+		B4BE1764284CD55F00562D42 /* NearbyInteractionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyInteractionManager.swift; sourceTree = "<group>"; };
+		B4BE1778284CD55F00562D42 /* MultipeerConnectivityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivityManager.swift; sourceTree = "<group>"; };
+		B4DBCBF1280AE7780058F146 /* Friendify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Friendify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4DBCBF4280AE7780058F146 /* FriendifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyApp.swift; sourceTree = "<group>"; };
+		B4DBCBF6280AE7780058F146 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B4DBCBF8280AE77E0058F146 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B4DBCBFB280AE77E0058F146 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B4DBCC01280AE77F0058F146 /* FriendifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FriendifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4DBCC05280AE77F0058F146 /* FriendifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyTests.swift; sourceTree = "<group>"; };
+		B4DBCC0B280AE77F0058F146 /* FriendifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FriendifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4DBCC0F280AE77F0058F146 /* FriendifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyUITests.swift; sourceTree = "<group>"; };
+		B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B4DBCC21280B05170058F146 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		B4DBCC23280B056E0058F146 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B4DBCC2C280D2C5A0058F146 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		B4DBCC2F280D2E910058F146 /* DistanceDirectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceDirectionState.swift; sourceTree = "<group>"; };
+		B4DBCC31280D322E0058F146 /* SessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionState.swift; sourceTree = "<group>"; };
+		B4DBCC33280D36550058F146 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B4DBCC34280DB6100058F146 /* MathUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathUtilities.swift; sourceTree = "<group>"; };
+		B4E243D4284DF024008C0640 /* Limiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Limiter.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B4DBCBEE280AE7780058F146 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4DBCBFE280AE77F0058F146 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4DBCC08280AE77F0058F146 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B41D215D286DC0CD00D8CF3B /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC23280B056E0058F146 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		B4BE1763284CD55F00562D42 /* NearbyInteraction */ = {
+			isa = PBXGroup;
+			children = (
+				B4BE1764284CD55F00562D42 /* NearbyInteractionManager.swift */,
+			);
+			path = NearbyInteraction;
+			sourceTree = "<group>";
+		};
+		B4BE1776284CD55F00562D42 /* MultipeerConnectivity */ = {
+			isa = PBXGroup;
+			children = (
+				B4BE1778284CD55F00562D42 /* MultipeerConnectivityManager.swift */,
+				0D06652328A9527400615616 /* MultipeerConnectivitySessionDelegate.swift */,
+				0D06651F28A9523600615616 /* MultipeerConnectivityBrowserDelegate.swift */,
+				0D06652128A9525700615616 /* MultipeerConnectivityAdvertiserDelegate.swift */,
+			);
+			path = MultipeerConnectivity;
+			sourceTree = "<group>";
+		};
+		B4DBCBE8280AE7780058F146 = {
+			isa = PBXGroup;
+			children = (
+				39D6A33B288E96DE00D7C843 /* README.md */,
+				B4DBCBF3280AE7780058F146 /* Friendify */,
+				B4DBCC04280AE77F0058F146 /* FriendifyTests */,
+				B4DBCC0E280AE77F0058F146 /* FriendifyUITests */,
+				B4DBCBF2280AE7780058F146 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B4DBCBF2280AE7780058F146 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCBF1280AE7780058F146 /* Friendify.app */,
+				B4DBCC01280AE77F0058F146 /* FriendifyTests.xctest */,
+				B4DBCC0B280AE77F0058F146 /* FriendifyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B4DBCBF3280AE7780058F146 /* Friendify */ = {
+			isa = PBXGroup;
+			children = (
+				B4BE1776284CD55F00562D42 /* MultipeerConnectivity */,
+				B4BE1763284CD55F00562D42 /* NearbyInteraction */,
+				B4DBCC33280D36550058F146 /* Info.plist */,
+				B4DBCC2E280D2E7F0058F146 /* Helpers */,
+				B4DBCC28280D2C100058F146 /* Modules */,
+				B4DBCBF4280AE7780058F146 /* FriendifyApp.swift */,
+				B4DBCC21280B05170058F146 /* AppViewModel.swift */,
+				B4DBCBF8280AE77E0058F146 /* Assets.xcassets */,
+				B4DBCBFA280AE77E0058F146 /* Preview Content */,
+			);
+			path = Friendify;
+			sourceTree = "<group>";
+		};
+		B4DBCBFA280AE77E0058F146 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCBFB280AE77E0058F146 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B4DBCC04280AE77F0058F146 /* FriendifyTests */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC05280AE77F0058F146 /* FriendifyTests.swift */,
+			);
+			path = FriendifyTests;
+			sourceTree = "<group>";
+		};
+		B4DBCC0E280AE77F0058F146 /* FriendifyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC0F280AE77F0058F146 /* FriendifyUITests.swift */,
+				B4DBCC11280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift */,
+			);
+			path = FriendifyUITests;
+			sourceTree = "<group>";
+		};
+		B4DBCC28280D2C100058F146 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				B41D215D286DC0CD00D8CF3B /* Onboarding */,
+				B4DBCC29280D2C160058F146 /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		B4DBCC29280D2C160058F146 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC2B280D2C280058F146 /* View */,
+				B4DBCC2A280D2C1F0058F146 /* Presenter */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B4DBCC2A280D2C1F0058F146 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCC2C280D2C5A0058F146 /* HomePresenter.swift */,
+				B476890228991672007598D5 /* HomePresenter+MultipeerConnectivityDelegate.swift */,
+				B4768904289916EA007598D5 /* HomePresenter+NearbyInteractionDelegate.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		B4DBCC2B280D2C280058F146 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B4DBCBF6280AE7780058F146 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B4DBCC2E280D2E7F0058F146 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B4E243D4284DF024008C0640 /* Limiter.swift */,
+				B4DBCC34280DB6100058F146 /* MathUtilities.swift */,
+				B4DBCC2F280D2E910058F146 /* DistanceDirectionState.swift */,
+				B4DBCC31280D322E0058F146 /* SessionState.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B4DBCBF0280AE7780058F146 /* Friendify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4DBCC15280AE77F0058F146 /* Build configuration list for PBXNativeTarget "Friendify" */;
+			buildPhases = (
+				B4DBCBED280AE7780058F146 /* Sources */,
+				B4DBCBEE280AE7780058F146 /* Frameworks */,
+				B4DBCBEF280AE7780058F146 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Friendify;
+			productName = Friendify;
+			productReference = B4DBCBF1280AE7780058F146 /* Friendify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B4DBCC00280AE77F0058F146 /* FriendifyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4DBCC18280AE77F0058F146 /* Build configuration list for PBXNativeTarget "FriendifyTests" */;
+			buildPhases = (
+				B4DBCBFD280AE77F0058F146 /* Sources */,
+				B4DBCBFE280AE77F0058F146 /* Frameworks */,
+				B4DBCBFF280AE77F0058F146 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4DBCC03280AE77F0058F146 /* PBXTargetDependency */,
+			);
+			name = FriendifyTests;
+			productName = FriendifyTests;
+			productReference = B4DBCC01280AE77F0058F146 /* FriendifyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B4DBCC0A280AE77F0058F146 /* FriendifyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4DBCC1B280AE77F0058F146 /* Build configuration list for PBXNativeTarget "FriendifyUITests" */;
+			buildPhases = (
+				B4DBCC07280AE77F0058F146 /* Sources */,
+				B4DBCC08280AE77F0058F146 /* Frameworks */,
+				B4DBCC09280AE77F0058F146 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4DBCC0D280AE77F0058F146 /* PBXTargetDependency */,
+			);
+			name = FriendifyUITests;
+			productName = FriendifyUITests;
+			productReference = B4DBCC0B280AE77F0058F146 /* FriendifyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B4DBCBE9280AE7780058F146 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					B4DBCBF0280AE7780058F146 = {
+						CreatedOnToolsVersion = 13.3;
+					};
+					B4DBCC00280AE77F0058F146 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = B4DBCBF0280AE7780058F146;
+					};
+					B4DBCC0A280AE77F0058F146 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = B4DBCBF0280AE7780058F146;
+					};
+				};
+			};
+			buildConfigurationList = B4DBCBEC280AE7780058F146 /* Build configuration list for PBXProject "Friendify" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B4DBCBE8280AE7780058F146;
+			productRefGroup = B4DBCBF2280AE7780058F146 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B4DBCBF0280AE7780058F146 /* Friendify */,
+				B4DBCC00280AE77F0058F146 /* FriendifyTests */,
+				B4DBCC0A280AE77F0058F146 /* FriendifyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B4DBCBEF280AE7780058F146 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39D6A33C288E96DE00D7C843 /* README.md in Resources */,
+				B4DBCBFC280AE77E0058F146 /* Preview Assets.xcassets in Resources */,
+				B4DBCBF9280AE77E0058F146 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4DBCBFF280AE77F0058F146 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4DBCC09280AE77F0058F146 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B4DBCBED280AE7780058F146 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D06652028A9523600615616 /* MultipeerConnectivityBrowserDelegate.swift in Sources */,
+				B4BE1785284CD55F00562D42 /* MultipeerConnectivityManager.swift in Sources */,
+				B4E243D5284DF024008C0640 /* Limiter.swift in Sources */,
+				0D06652228A9525700615616 /* MultipeerConnectivityAdvertiserDelegate.swift in Sources */,
+				B4DBCC2D280D2C5A0058F146 /* HomePresenter.swift in Sources */,
+				B4BE177A284CD55F00562D42 /* NearbyInteractionManager.swift in Sources */,
+				B4DBCBF7280AE7780058F146 /* HomeView.swift in Sources */,
+				B4DBCC32280D322E0058F146 /* SessionState.swift in Sources */,
+				B4DBCC35280DB6100058F146 /* MathUtilities.swift in Sources */,
+				B4768905289916EA007598D5 /* HomePresenter+NearbyInteractionDelegate.swift in Sources */,
+				B4DBCBF5280AE7780058F146 /* FriendifyApp.swift in Sources */,
+				B4DBCC30280D2E910058F146 /* DistanceDirectionState.swift in Sources */,
+				B476890328991672007598D5 /* HomePresenter+MultipeerConnectivityDelegate.swift in Sources */,
+				B4DBCC22280B05170058F146 /* AppViewModel.swift in Sources */,
+				B4DBCC24280B056E0058F146 /* OnboardingView.swift in Sources */,
+				0D06652428A9527400615616 /* MultipeerConnectivitySessionDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4DBCBFD280AE77F0058F146 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4DBCC06280AE77F0058F146 /* FriendifyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4DBCC07280AE77F0058F146 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4DBCC10280AE77F0058F146 /* FriendifyUITests.swift in Sources */,
+				B4DBCC12280AE77F0058F146 /* FriendifyUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B4DBCC03280AE77F0058F146 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B4DBCBF0280AE7780058F146 /* Friendify */;
+			targetProxy = B4DBCC02280AE77F0058F146 /* PBXContainerItemProxy */;
+		};
+		B4DBCC0D280AE77F0058F146 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B4DBCBF0280AE7780058F146 /* Friendify */;
+			targetProxy = B4DBCC0C280AE77F0058F146 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B4DBCC13280AE77F0058F146 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B4DBCC14280AE77F0058F146 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B4DBCC16280AE77F0058F146 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Friendify/Preview Content\"";
+				DEVELOPMENT_TEAM = RE4SHLL9XY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Friendify/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.minaashna.Friendify;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B4DBCC17280AE77F0058F146 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Friendify/Preview Content\"";
+				DEVELOPMENT_TEAM = RE4SHLL9XY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Friendify/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "The app needs permission to find peers around you.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.minaashna.Friendify;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B4DBCC19280AE77F0058F146 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RE4SHLL9XY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.minaashna.FriendifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Friendify.app/Friendify";
+			};
+			name = Debug;
+		};
+		B4DBCC1A280AE77F0058F146 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RE4SHLL9XY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.minaashna.FriendifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Friendify.app/Friendify";
+			};
+			name = Release;
+		};
+		B4DBCC1C280AE77F0058F146 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RE4SHLL9XY;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.minaashna.FriendifyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Friendify;
+			};
+			name = Debug;
+		};
+		B4DBCC1D280AE77F0058F146 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RE4SHLL9XY;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.minaashna.FriendifyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Friendify;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B4DBCBEC280AE7780058F146 /* Build configuration list for PBXProject "Friendify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4DBCC13280AE77F0058F146 /* Debug */,
+				B4DBCC14280AE77F0058F146 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4DBCC15280AE77F0058F146 /* Build configuration list for PBXNativeTarget "Friendify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4DBCC16280AE77F0058F146 /* Debug */,
+				B4DBCC17280AE77F0058F146 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4DBCC18280AE77F0058F146 /* Build configuration list for PBXNativeTarget "FriendifyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4DBCC19280AE77F0058F146 /* Debug */,
+				B4DBCC1A280AE77F0058F146 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B4DBCC1B280AE77F0058F146 /* Build configuration list for PBXNativeTarget "FriendifyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4DBCC1C280AE77F0058F146 /* Debug */,
+				B4DBCC1D280AE77F0058F146 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B4DBCBE9280AE7780058F146 /* Project object */;
+}
