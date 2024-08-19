@@ -19,6 +19,8 @@ class AppViewModel: ObservableObject {
     @Published var azimuthDirection: Direction?
     @Published var currentDistanceDirectionState: DistanceDirectionState = .unknown
     @Published var logs: [String] = []
+    @Published var chat: [String] = []
+
     var isNearbyInteractionSupported: Bool {
         if #available(iOS 16.0, watchOS 9.0, *) {
            return NISession.deviceCapabilities.supportsPreciseDistanceMeasurement

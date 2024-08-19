@@ -16,6 +16,7 @@ extension HomePresenter: MultipeerConnectivityDelegate {
         if let message = String(data: data, encoding: .utf8) {
             viewModel.logs.append("\(session.myPeerID.displayName) did receive message \(message) from \(peer.displayName)")
             viewModel.logs.append(message)
+            viewModel.chat.append("\(session.myPeerID.displayName): \(message)")
         } else {
             guard let discoveryToken = try? NSKeyedUnarchiver
                 .unarchivedObject(ofClass: NIDiscoveryToken.self,

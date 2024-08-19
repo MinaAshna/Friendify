@@ -57,15 +57,14 @@ struct HomeView: View {
                 
                 Divider()
                 
-                Image(viewModel.imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .padding(32)
-                    .rotationEffect(Angle(radians: viewModel.rotationAngle))
-                    .opacity(viewModel.sessionState == .notConnected ? 0 : 1)
-                
                 Spacer()
-                
+
+                List {
+                    ForEach(viewModel.chat, id: \.self) { message in
+                        Text(message)
+                    }
+                }
+                .opacity(viewModel.sessionState == .notConnected ? 0 : 1)
                 
                 HStack {
                     TextField("Message", text: $viewModel.message)
@@ -91,38 +90,26 @@ struct HomeView: View {
                 .padding(16)
                 .opacity(viewModel.sessionState == .peerConnected || viewModel.sessionState == .peerConnectedAndPositionShared ? 1 : 0)
                 
-                
-                Spacer()
-                
-                
-                List {
-                    ForEach(viewModel.logs, id: \.self) { log in
-                        Text(log)
-                    }
-                }
-                .opacity(viewModel.sessionState == .notConnected ? 0 : 1)
-                
-                    Button {
-                        presenter.connectButtonTapped()
-                        if viewModel.sessionState == .peerConnected {
-                            presentAlert = !viewModel.isNearbyInteractionSupported
-                        }
-                    } label: {
-                        Text(buttonText)
-                            .font(.title3)
-                            .foregroundColor(colorScheme == .dark ? .black : .white)
-                            .frame(width: reader.size.width * 0.9, height: viewModel.sessionState == .notConnected || viewModel.sessionState == .peerConnected ? 60 : 0)
-                            .background(Color.primary)
-                            .cornerRadius(8)
-                    }
-                    .padding()
-                    .alert("Oh Oh! Nearby Interaction is not supported.",
-                           isPresented: $presentAlert) {
-                                Button("OK", role: .cancel) { }
-                            }
 
-                   
                 
+                Button {
+                    presenter.connectButtonTapped()
+                    if viewModel.sessionState == .peerConnected {
+                        presentAlert = !viewModel.isNearbyInteractionSupported
+                    }
+                } label: {
+                    Text(buttonText)
+                        .font(.title3)
+                        .foregroundColor(colorScheme == .dark ? .black : .white)
+                        .frame(width: reader.size.width * 0.9, height: viewModel.sessionState == .notConnected || viewModel.sessionState == .peerConnected ? 60 : 0)
+                        .background(Color.primary)
+                        .cornerRadius(8)
+                }
+                .padding()
+                .alert("Oh Oh! Nearby Interaction is not supported.",
+                       isPresented: $presentAlert) {
+                    Button("OK", role: .cancel) { }
+                }
             }
             
         }
@@ -131,13 +118,8 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     class DummyPresenter: HomePresenterProtocol {        
-        func connectButtonTapped() {
-
-        }
-        
-        func sendMessage() {
-            
-        }
+        func connectButtonTapped() { }
+        func sendMessage() { }
     }
 
     static var viewModel: AppViewModel {

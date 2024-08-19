@@ -174,6 +174,7 @@ extension HomePresenter: HomePresenterProtocol {
     
     func sendMessage() {
         if let message = viewModel.message.data(using: .utf8) {
+            viewModel.chat.append("You: \(viewModel.message)")
             viewModel.mpc?.sendDataToAllPeers(data: message)
             viewModel.message = ""
         }
