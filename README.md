@@ -1,9 +1,11 @@
 # Friendify
 
-<h1>
+[**Friendify**](https://apps.apple.com/dk/app/friendify/id1638090349) on App Store
+
+<h4>
 Connect with people in nearby distances using Nearby Interaction framework.
 Project for my talk at iOSDevUK 2023.
-</h1>
+</h4>
 
 
 Assets copyright
